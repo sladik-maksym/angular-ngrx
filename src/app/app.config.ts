@@ -7,11 +7,11 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import {
-  authSuccessEffect,
-  logOutEffect,
-  logOutSuccessEffect,
-  signInEffect,
-  signUpEffect,
+  authSuccessEffect$,
+  logOutEffect$,
+  logOutSuccessEffect$,
+  signInEffect$,
+  signUpEffect$,
 } from '@src/app/core/store/effects/auth.effects';
 import { authFeature } from '@src/app/core/store/reducers/auth.reducers';
 import { themeFeature } from '@src/app/core/store/reducers/theme.reducers';
@@ -29,11 +29,11 @@ export const appConfig: ApplicationConfig = {
       [authFeature.name]: authFeature.reducer,
     }),
     provideEffects({
-      signUpEffect,
-      signInEffect,
-      logOutEffect,
-      authSuccessEffect,
-      logOutSuccessEffect,
+      signUpEffect$,
+      signInEffect$,
+      logOutEffect$,
+      authSuccessEffect$,
+      logOutSuccessEffect$,
     }),
     provideStoreDevtools({
       maxAge: 25,

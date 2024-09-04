@@ -28,5 +28,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 // maksym_sladik@gmail.com
 // !1QqWeRt
+
 # angular-firebase-auth
 # angular-firebase-auth

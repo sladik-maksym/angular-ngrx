@@ -6,7 +6,7 @@ import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { authActionsGroup } from '../actions/auth.actions';
 import { Router } from '@angular/router';
 
-export const signUpEffect = createEffect(
+export const signUpEffect$ = createEffect(
   () => {
     const actions$ = inject(Actions);
     const authService = inject(AuthService);
@@ -33,7 +33,7 @@ export const signUpEffect = createEffect(
   { functional: true }
 );
 
-export const signInEffect = createEffect(
+export const signInEffect$ = createEffect(
   () => {
     const actions$ = inject(Actions);
     const authService = inject(AuthService);
@@ -65,7 +65,7 @@ export const signInEffect = createEffect(
   { functional: true }
 );
 
-export const logOutEffect = createEffect(
+export const logOutEffect$ = createEffect(
   () => {
     const actions$ = inject(Actions);
     const authService = inject(AuthService);
@@ -84,7 +84,7 @@ export const logOutEffect = createEffect(
   { functional: true, dispatch: false }
 );
 
-export const authSuccessEffect = createEffect(
+export const authSuccessEffect$ = createEffect(
   () => {
     const actions$ = inject(Actions);
     const router = inject(Router);
@@ -100,7 +100,7 @@ export const authSuccessEffect = createEffect(
   }
 );
 
-export const logOutSuccessEffect = createEffect(
+export const logOutSuccessEffect$ = createEffect(
   () => {
     const actions$ = inject(Actions);
     const router = inject(Router);
