@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { SpotifyService } from '@src/app/core/services/spotify.service';
 import { ERROR_MESSAGES } from '@src/app/shared/constants/error-messages';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { SpotifyService } from '../../services/spotify.service';
 import { spotifyActionsGroup } from '../actions/spotify.actions';
 
 export const spotifyEffect$ = createEffect(

@@ -6,7 +6,7 @@ import { selectSpotifyAccessTokenFeature } from '../store/selectors/spotify.sele
 
 export const spotifyInterceptor: HttpInterceptorFn = (req, next) => {
   const store = inject(Store);
-  
+
   const accessToken$ = store.select(selectSpotifyAccessTokenFeature);
 
   return accessToken$.pipe(
