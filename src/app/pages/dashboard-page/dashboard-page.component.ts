@@ -42,11 +42,11 @@ export class DashboardPageComponent implements OnInit {
   public readonly catalog$ = this.store.select(selectSpotifyCatalogFeature);
   public readonly loading$ = this.store.select(selectSpotifyLoadingFeature);
   public readonly error$ = this.store.select(selectSpotifyFailedFeature);
-  public readonly selectedTypes$ = this.store.select(
-    selectSpotifySelectedTypesFeature
-  );
   public readonly searchValue$ = this.store.select(
     selectSpotifySearchValueFeature
+  );
+  public readonly selectedTypes$ = this.store.select(
+    selectSpotifySelectedTypesFeature
   );
 
   public readonly spotifyTypes = SPOTIFY_TYPES;

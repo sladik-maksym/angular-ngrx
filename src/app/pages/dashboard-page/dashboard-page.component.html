@@ -9,6 +9,7 @@
   }
 
   @let catalog = catalog$ | async;
+  @let searchValue = (searchValue$ | async);
   @let selectedTypes = (selectedTypes$ | async);
   @if(!!catalog) {
   <div class="checkboxes_wrapper">
@@ -20,7 +21,7 @@
     </label>
     }
     <div class="button-wrapper">
-      <button class="button button-color" (click)="submit()" [disabled]="selectedTypes?.length === 0">
+      <button class="button button-color" (click)="submit()" [disabled]="selectedTypes?.length === 0 || !searchValue">
         Search
       </button>
     </div>

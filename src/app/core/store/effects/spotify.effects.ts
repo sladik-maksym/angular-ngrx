@@ -20,7 +20,7 @@ export const spotifyEffect = createEffect(
             return spotifyActionsGroup.success({ catalog });
           }),
           catchError((e) => {
-            const isAccessTokenExpired = (e.status = 401);
+            const isAccessTokenExpired = e.status === 401;
 
             if (isAccessTokenExpired) {
               router.navigate(['/dashboard']);
