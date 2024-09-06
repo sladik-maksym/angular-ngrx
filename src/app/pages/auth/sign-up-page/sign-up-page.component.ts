@@ -5,8 +5,8 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { authActionsGroup } from '@src/app/core/store/actions/auth.actions';
 import {
-  selectAuthFeatureFailed,
-  selectAuthFeatureLoading,
+  selectAuthFailedFeature,
+  selectAuthLoadingFeature,
 } from '@src/app/core/store/selectors/auth.selectors';
 import { filter, take, tap } from 'rxjs';
 import { FirstStepComponent } from './shared/components/first-step/first-step.component';
@@ -36,8 +36,8 @@ import { SignUpForm } from './shared/interfaces/sign-up-page.interfaces';
 export class SignUpPageComponent implements OnDestroy {
   private readonly store = inject(Store);
 
-  public readonly loading$ = this.store.select(selectAuthFeatureLoading);
-  public readonly error$ = this.store.select(selectAuthFeatureFailed);
+  public readonly loading$ = this.store.select(selectAuthLoadingFeature);
+  public readonly error$ = this.store.select(selectAuthFailedFeature);
 
   public readonly signUpForm = new FormGroup<SignUpForm>({
     userDetails: new FormGroup(
@@ -79,7 +79,7 @@ export class SignUpPageComponent implements OnDestroy {
       }),
     }),
   });
-  currentStep = 1;
+  public currentStep = 1;
 
   ngOnDestroy() {
     this.store.dispatch(authActionsGroup.resetError());

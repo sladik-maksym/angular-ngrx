@@ -2,7 +2,7 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectAuthFeatureUser } from '@src/app/core/store/selectors/auth.selectors';
+import { selectAuthUserFeature } from '@src/app/core/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +16,8 @@ export class SidebarComponent {
   @Output() private toggle = new EventEmitter<boolean>();
 
   private readonly store = inject(Store);
-  public readonly user$ = this.store.select(selectAuthFeatureUser);
+
+  public readonly user$ = this.store.select(selectAuthUserFeature);
 
   public handleSidebar() {
     this.toggle.emit();

@@ -26,6 +26,8 @@
   --cool-gray-color: #8896a4;
   --kelly-green-color: #52c41a;
   --dark-gunmetal-color: #1e2227;
+  --cadet-blue-crayola-color: #a3b0bd;
+  --lavender-gray-color: #c2cad2;
 }
 
 [id="light"] {
@@ -104,5 +106,6 @@
   &:disabled {
     background-color: var(--bright-gray-color) !important;
     color: var(--dark-electric-blue-color) !important;
+    cursor: not-allowed;
   }
 }

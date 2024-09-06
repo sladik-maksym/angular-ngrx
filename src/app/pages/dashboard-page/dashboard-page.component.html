@@ -1,2 +1,40 @@
-<app-calculator></app-calculator>
-<app-theme-switcher></app-theme-switcher>
+<div class="wrapper">
+  @if(loading$ | async) {
+  <span>Loading ...</span>
+  }
+
+  @let error = error$ | async;
+  @if(!!error) {
+  <span>{{ error }}</span>
+  }
+
+  @let catalog = catalog$ | async;
+  @if(!!catalog) {
+  <div class="catalog-wrapper">
+    @for(type of catalog | keyvalue; track type.key) {
+    <span class="title">{{ type.key | titlecase }}</span>
+
+    <div class="items-wrapper">
+      @for(item of type.value.items; track item.id) {
+      <div class="item">
+        <span class="item-title" [title]="item.name">{{ item.name }}</span>
+
+        @if(!!item.images && item.images.length > 0) {
+        <img [src]="item.images[0].url" alt="">
+        }
+      </div>
+      }
+    </div>
+    } @empty {
+    <span>
+      Nothing found :(
+    </span>
+    }
+  </div>
+  }
+
+  <div class="calculator-wrapper">
+    <app-calculator></app-calculator>
+    <app-theme-switcher></app-theme-switcher>
+  </div>
+</div>

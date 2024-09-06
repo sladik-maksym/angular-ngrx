@@ -5,6 +5,7 @@ export const ERROR_MESSAGES = {
   INVALID_CREDENTIAL: 'Invalid credential',
   SOMETHING_WRONG: 'Whoops! Something went wrong. Please try again.',
   NOT_MATCH_PASSWORD: 'Does not match to password',
+  ACCESS_TOKEN_EXPIRED:'The access token expired',
   PASSWORD: {
     ONE_NUMBER: 'Have at least one number',
     ONLY_LATIN: 'Only latin',

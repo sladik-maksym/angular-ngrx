@@ -1,4 +1,12 @@
 <div class="wrapper">
+  <div class="input-search-wrapper">
+    <button class="button-icon" (click)="handleSpotify()" [disabled]="!searchValue">
+      <img src="/assets/svg/search.svg" alt="">
+    </button>
+
+    <input type="text" class="input-search" placeholder="Search" [value]="searchValue" (input)="handleSearch($event)">
+  </div>
+
   <div class="button-wrapper">
     <button class="button button-color" (click)="logOut()">Log out</button>
   </div>

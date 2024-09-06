@@ -5,17 +5,17 @@ export type AuthFeatureState = AuthState;
 
 export const selectFeature = createFeatureSelector<AuthFeatureState>('auth');
 
-export const selectAuthFeatureUser = createSelector(
+export const selectAuthUserFeature = createSelector(
   selectFeature,
   (state: AuthFeatureState) => state.user
 );
 
-export const selectAuthFeatureLoading = createSelector(
+export const selectAuthLoadingFeature = createSelector(
   selectFeature,
   (state: AuthFeatureState) => state.loading
 );
 
-export const selectAuthFeatureFailed = createSelector(
+export const selectAuthFailedFeature = createSelector(
   selectFeature,
   (state: AuthFeatureState) => state.error
 );

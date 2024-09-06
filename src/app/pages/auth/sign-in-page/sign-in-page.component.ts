@@ -10,8 +10,8 @@ import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { authActionsGroup } from '@src/app/core/store/actions/auth.actions';
 import {
-  selectAuthFeatureFailed,
-  selectAuthFeatureLoading,
+  selectAuthFailedFeature,
+  selectAuthLoadingFeature,
 } from '@src/app/core/store/selectors/auth.selectors';
 import { ERROR_MESSAGES } from '@src/app/shared/constants/error-messages';
 import { SignInForm } from './shared/interfaces/sign-in-page.interfaces';
@@ -25,8 +25,10 @@ import { SignInForm } from './shared/interfaces/sign-in-page.interfaces';
 })
 export class SignInPageComponent implements OnDestroy {
   private readonly store = inject(Store);
-  public readonly loading$ = this.store.select(selectAuthFeatureLoading);
-  public readonly error$ = this.store.select(selectAuthFeatureFailed);
+
+  public readonly loading$ = this.store.select(selectAuthLoadingFeature);
+  public readonly error$ = this.store.select(selectAuthFailedFeature);
+
   public readonly signInForm = new FormGroup<SignInForm>({
     email: new FormControl('', {
       nonNullable: true,

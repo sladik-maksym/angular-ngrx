@@ -12,6 +12,9 @@
         },
         "@schematics/angular:directive": {
           "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
         }
       },
       "root": "",

@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectAuthFeatureUser } from '@src/app/core/store/selectors/auth.selectors';
+import { selectAuthUserFeature } from '@src/app/core/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-not-found-page',
@@ -13,5 +13,6 @@ import { selectAuthFeatureUser } from '@src/app/core/store/selectors/auth.select
 })
 export class NotFoundPageComponent {
   private readonly store = inject(Store);
-  public readonly user$ = this.store.select(selectAuthFeatureUser);
+
+  public readonly user$ = this.store.select(selectAuthUserFeature);
 }

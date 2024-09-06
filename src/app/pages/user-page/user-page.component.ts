@@ -1,7 +1,7 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectAuthFeatureUser } from '@src/app/core/store/selectors/auth.selectors';
+import { selectAuthUserFeature } from '@src/app/core/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-user-page',
@@ -14,5 +14,6 @@ export class UserPageComponent {
   @Input() public readonly id: string | null = null;
 
   private readonly store = inject(Store);
-  public readonly user$ = this.store.select(selectAuthFeatureUser);
+
+  public readonly user$ = this.store.select(selectAuthUserFeature);
 }

@@ -21,6 +21,12 @@ if (!fs.existsSync(envFilePath)) {
         messagingSenderId: '',
         appId: '',
       },
+      spotify: {
+        clientId: '',
+        clientSecret: '',
+        responseType: '',
+        redirectUri: '',
+      },
     };`
   );
 }
@@ -36,6 +42,12 @@ if (!fs.existsSync(envDevFilePath)) {
         storageBucket: '',
         messagingSenderId: '',
         appId: '',
+      },
+      spotify: {
+        clientId: '',
+        clientSecret: '',
+        responseType: '',
+        redirectUri: '',
       },
     };`
   );
