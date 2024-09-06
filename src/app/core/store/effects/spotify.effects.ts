@@ -6,7 +6,7 @@ import { ERROR_MESSAGES } from '@src/app/shared/constants/error-messages';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { spotifyActionsGroup } from '../actions/spotify.actions';
 
-export const spotifyEffect$ = createEffect(
+export const spotifyEffect = createEffect(
   () => {
     const actions$ = inject(Actions);
     const spotifyService = inject(SpotifyService);

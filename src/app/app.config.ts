@@ -8,13 +8,13 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { spotifyInterceptor } from '@src/app/core/interceptors/spotify.interceptor';
 import {
-  authSuccessEffect$,
-  logOutEffect$,
-  logOutSuccessEffect$,
-  signInEffect$,
-  signUpEffect$,
+  authSuccessEffect,
+  logOutEffect,
+  logOutSuccessEffect,
+  signInEffect,
+  signUpEffect,
 } from '@src/app/core/store/effects/auth.effects';
-import { spotifyEffect$ } from '@src/app/core/store/effects/spotify.effects';
+import { spotifyEffect } from '@src/app/core/store/effects/spotify.effects';
 import { spotifyFeature } from '@src/app/core/store/reducers//spotify.reducers';
 import { authFeature } from '@src/app/core/store/reducers/auth.reducers';
 import { themeFeature } from '@src/app/core/store/reducers/theme.reducers';
@@ -33,12 +33,12 @@ export const appConfig: ApplicationConfig = {
       [spotifyFeature.name]: spotifyFeature.reducer,
     }),
     provideEffects({
-      signUpEffect$,
-      signInEffect$,
-      logOutEffect$,
-      authSuccessEffect$,
-      logOutSuccessEffect$,
-      spotifyEffect$,
+      signUpEffect,
+      signInEffect,
+      logOutEffect,
+      authSuccessEffect,
+      logOutSuccessEffect,
+      spotifyEffect,
     }),
     provideStoreDevtools({
       maxAge: 25,
