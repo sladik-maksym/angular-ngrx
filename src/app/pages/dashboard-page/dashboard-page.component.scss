@@ -5,6 +5,40 @@
   grid-template-rows: repeat(2, max-content);
   grid-gap: 24px;
 
+  .checkboxes_wrapper {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: var(--shadows-modal);
+    border: 1px solid var(--ghost-white-color);
+    padding: 6px 8px;
+    border-radius: 4px;
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: max-content;
+
+      .checkbox {
+        width: 14px;
+        height: 14px;
+      }
+
+      .text {
+        @include typography-body-medium;
+      }
+    }
+
+    .button-wrapper {
+      width: 150px;
+
+      .button-color {
+        background-color: var(--majorelle-blue-color);
+        color: var(--base-white-color);
+      }
+    }
+  }
+
   .catalog-wrapper {
     display: flex;
     flex-direction: column;
@@ -37,6 +71,11 @@
           white-space: nowrap;
         }
       }
+    }
+
+    .empty-state {
+      color: var(--base-silver-chalice-color);
+      @include typography-body-medium;
     }
   }
 

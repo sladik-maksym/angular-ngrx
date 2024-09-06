@@ -16,7 +16,9 @@ import { Themes } from './shared/interfaces/theme-switcher.interfaces';
 })
 export class ThemeSwitcherComponent {
   private readonly store = inject(Store);
+
   public readonly theme$ = this.store.select(selectThemeFeature);
+
   public readonly themes: Themes = THEMES;
   public readonly buttons = [
     {

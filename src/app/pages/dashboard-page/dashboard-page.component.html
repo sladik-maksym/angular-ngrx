@@ -9,7 +9,23 @@
   }
 
   @let catalog = catalog$ | async;
+  @let selectedTypes = (selectedTypes$ | async);
   @if(!!catalog) {
+  <div class="checkboxes_wrapper">
+    @for(type of spotifyTypes; track type) {
+    <label class="item">
+      <input type="checkbox" class="checkbox" [name]="type" (input)="handleSelectedTypes(type)"
+        [checked]="selectedTypes?.includes(type)">
+      <span class="text">{{ type | titlecase }}</span>
+    </label>
+    }
+    <div class="button-wrapper">
+      <button class="button button-color" (click)="submit()" [disabled]="selectedTypes?.length === 0">
+        Search
+      </button>
+    </div>
+  </div>
+
   <div class="catalog-wrapper">
     @for(type of catalog | keyvalue; track type.key) {
     <span class="title">{{ type.key | titlecase }}</span>
@@ -23,10 +39,14 @@
         <img [src]="item.images[0].url" alt="">
         }
       </div>
+      } @empty {
+      <span class="empty-state">
+        Nothing found :(
+      </span>
       }
     </div>
     } @empty {
-    <span>
+    <span class="empty-state">
       Nothing found :(
     </span>
     }

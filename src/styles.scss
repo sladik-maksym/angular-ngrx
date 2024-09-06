@@ -8,6 +8,7 @@
 }
 
 :root {
+  // hex colors
   --base-white-color: #ffffff;
   --base-cod-gray-color: #1c1c1c;
   --base-tundora-color: #4a4a4a;
@@ -28,6 +29,13 @@
   --dark-gunmetal-color: #1e2227;
   --cadet-blue-crayola-color: #a3b0bd;
   --lavender-gray-color: #c2cad2;
+  --ghost-white-color: #f9fafb;
+
+  // rgba colors
+  --base-cod-gray-06-color: rgba(28, 28, 28, 0.6);
+
+  // shadows
+  --shadows-modal: 0px 4px 16px 0px #c3cad252;
 }
 
 [id="light"] {
@@ -108,4 +116,8 @@
     color: var(--dark-electric-blue-color) !important;
     cursor: not-allowed;
   }
+}
+
+input[type="checkbox"] {
+  accent-color: var(--majorelle-blue-color);
 }

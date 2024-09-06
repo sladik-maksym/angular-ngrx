@@ -7,6 +7,9 @@ export interface SpotifyState {
   catalog: Catalog | null;
   loading: boolean;
   error: null | string;
+  isModalOpened: boolean;
+  searchValue: string;
+  selectedTypes: string[];
 }
 
 export const initialState: SpotifyState = {
@@ -14,6 +17,9 @@ export const initialState: SpotifyState = {
   catalog: null,
   loading: false,
   error: null,
+  isModalOpened: false,
+  searchValue: '',
+  selectedTypes: [],
 };
 
 export const spotifyFeature = createFeature({
@@ -23,8 +29,6 @@ export const spotifyFeature = createFeature({
     on(spotifyActionsGroup.setAccessToken, (state, { accessToken }) => ({
       ...state,
       accessToken,
-      catalog: null,
-      loading: false,
     })),
     on(spotifyActionsGroup.getCatalog, (state) => ({
       ...state,
@@ -38,8 +42,28 @@ export const spotifyFeature = createFeature({
     })),
     on(spotifyActionsGroup.failed, (state, { error }) => ({
       ...state,
+      catalog: null,
       loading: false,
       error,
-    }))
+    })),
+    on(spotifyActionsGroup.handleModal, (state) => ({
+      ...state,
+      isModalOpened: !state.isModalOpened,
+    })),
+    on(spotifyActionsGroup.changeSearchValue, (state, { searchValue }) => ({
+      ...state,
+      searchValue,
+    })),
+    on(spotifyActionsGroup.changeSelectedTypes, (state, { selectedType }) => {
+      const isSelected = state.selectedTypes.includes(selectedType);
+      const nextSelectedTypes = isSelected
+        ? [...state.selectedTypes.filter((v) => v !== selectedType)]
+        : [...state.selectedTypes, selectedType];
+
+      return {
+        ...state,
+        selectedTypes: nextSelectedTypes,
+      };
+    })
   ),
 });

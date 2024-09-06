@@ -7,8 +7,11 @@
 <nav>
   <ul>
     <li routerLinkActive="active-link">
-      <a class="item-link" [routerLink]="['/dashboard']">
+      @let accessToken = accessToken$ | async;
+      <a class="item-link" [routerLink]="['/dashboard']"
+        [fragment]="accessToken ? 'access_token=' + accessToken : undefined">
         <img src="/assets/svg/dashboard.svg" alt="">
+
         <span class="link-title" [ngClass]="{ 'collapse-link-title': !collapsed }">
           Dashboard
         </span>
@@ -18,6 +21,7 @@
     <li routerLinkActive="active-link">
       <a class="item-link" [routerLink]="['/user', (user$ | async)?.user?.uid]">
         <img src="/assets/svg/user.svg" alt="">
+
         <span class="link-title" [ngClass]="{ 'collapse-link-title': !collapsed }">
           User
         </span>

@@ -3,6 +3,7 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectAuthUserFeature } from '@src/app/core/store/selectors/auth.selectors';
+import { selectSpotifyAccessTokenFeature } from '@src/app/core/store/selectors/spotify.selectors';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,6 +18,7 @@ export class SidebarComponent {
 
   private readonly store = inject(Store);
 
+  public readonly accessToken$ = this.store.select(selectSpotifyAccessTokenFeature);
   public readonly user$ = this.store.select(selectAuthUserFeature);
 
   public handleSidebar() {

@@ -14,8 +14,8 @@ export const spotifyEffect$ = createEffect(
 
     return actions$.pipe(
       ofType(spotifyActionsGroup.getCatalog),
-      switchMap(({ searchValue }) => {
-        return spotifyService.getCatalog(searchValue).pipe(
+      switchMap(({ searchValue, selectedTypes }) => {
+        return spotifyService.getCatalog(searchValue, selectedTypes).pipe(
           map((catalog) => {
             return spotifyActionsGroup.success({ catalog });
           }),

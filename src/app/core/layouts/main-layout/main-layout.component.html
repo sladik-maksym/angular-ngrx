@@ -6,6 +6,10 @@
   <app-header></app-header>
 </header>
 
+@if(isModalOpened$ | async) {
+<app-modal-spotify-types></app-modal-spotify-types>
+}
+
 <main class="main">
   <router-outlet></router-outlet>
 </main>

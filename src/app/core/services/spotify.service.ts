@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
 export class SpotifyService {
   private readonly http = inject(HttpClient);
 
-  public getCatalog(search: string): Observable<Catalog> {
+  public getCatalog(search: string, types: string[]): Observable<Catalog> {
     return this.http.get<Catalog>(
-      `${spotifySearchUrl}${search}&type=album,artist,playlist,track,show,episode,audiobook`
+      `${spotifySearchUrl}?q=${search}&type=${types.join()}`
     );
   }
 }

@@ -18,18 +18,22 @@ import {
   styleUrl: './calculator.component.scss',
 })
 export class CalculatorComponent {
-  store = inject(Store);
-  theme$ = this.store.select(selectThemeFeature);
   @ViewChild('calculatorDisplay')
-  calculatorDisplayRef!: ElementRef<HTMLDivElement>;
+  private readonly store = inject(Store);
 
-  displayValue: string = CALC_INITIAL_DISPLAY_VALUE;
-  currentValue: string | null = null;
-  previousValue: string | null = null;
-  operator: string | null = null;
+  public readonly theme$ = this.store.select(selectThemeFeature);
 
-  calcButtons = CALC_BUTTONS;
-  buttonActionsMap: { [key: string]: (value: string) => void } = {
+  private readonly calculatorDisplayRef!: ElementRef<HTMLDivElement>;
+
+  public displayValue: string = CALC_INITIAL_DISPLAY_VALUE;
+  private currentValue: string | null = null;
+  private previousValue: string | null = null;
+  private operator: string | null = null;
+
+  public readonly calcButtons = CALC_BUTTONS;
+  public readonly buttonActionsMap: {
+    [key: string]: (value: string) => void;
+  } = {
     changeControl: this.changeControl.bind(this),
     changeValue: this.changeValue.bind(this),
     changeOperator: this.changeOperator.bind(this),

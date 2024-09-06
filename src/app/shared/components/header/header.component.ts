@@ -1,15 +1,19 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { authActionsGroup } from '@src/app/core/store/actions/auth.actions';
 import { spotifyActionsGroup } from '@src/app/core/store/actions/spotify.actions';
-import { selectSpotifyAccessTokenFeature } from '@src/app/core/store/selectors/spotify.selectors';
+import {
+  selectSpotifyAccessTokenFeature,
+  selectSpotifySearchValueFeature,
+} from '@src/app/core/store/selectors/spotify.selectors';
 import { spotifyAuthUrl } from '@src/app/shared/constants/spotify';
 import { take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -19,8 +23,9 @@ export class HeaderComponent {
   private readonly accessToken$ = this.store.select(
     selectSpotifyAccessTokenFeature
   );
-
-  public searchValue: string = '';
+  public readonly searchValue$ = this.store.select(
+    selectSpotifySearchValueFeature
+  );
 
   public handleSpotify() {
     this.accessToken$
@@ -28,9 +33,7 @@ export class HeaderComponent {
         take(1),
         tap((accessToken) => {
           if (accessToken) {
-            this.store.dispatch(
-              spotifyActionsGroup.getCatalog({ searchValue: this.searchValue })
-            );
+            this.store.dispatch(spotifyActionsGroup.handleModal());
           } else {
             window.open(spotifyAuthUrl, '_parent')?.focus();
           }
@@ -40,7 +43,8 @@ export class HeaderComponent {
   }
 
   public handleSearch(event: Event) {
-    this.searchValue = (event.target as HTMLInputElement).value;
+    const searchValue = (event.target as HTMLInputElement).value;
+    this.store.dispatch(spotifyActionsGroup.changeSearchValue({ searchValue }));
   }
 
   public logOut() {

@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-  TitleCasePipe
-} from '@angular/common';
+import { AsyncPipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,7 +7,11 @@ import {
   selectSpotifyCatalogFeature,
   selectSpotifyFailedFeature,
   selectSpotifyLoadingFeature,
+  selectSpotifySearchValueFeature,
+  selectSpotifySelectedTypesFeature,
 } from '@src/app/core/store/selectors/spotify.selectors';
+import { SPOTIFY_TYPES } from '@src/app/shared/constants/spotify';
+import { combineLatest, take, tap } from 'rxjs';
 import { CalculatorComponent } from './shared/components/calculator/calculator.component';
 import { ThemeSwitcherComponent } from './shared/components/theme-switcher/theme-switcher.component';
 
@@ -36,12 +36,20 @@ const getURLSearchParams = (
   styleUrl: './dashboard-page.component.scss',
 })
 export class DashboardPageComponent implements OnInit {
-  activatedRoute = inject(ActivatedRoute);
-  store = inject(Store);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly store = inject(Store);
 
-  catalog$ = this.store.select(selectSpotifyCatalogFeature);
-  loading$ = this.store.select(selectSpotifyLoadingFeature);
-  error$ = this.store.select(selectSpotifyFailedFeature);
+  public readonly catalog$ = this.store.select(selectSpotifyCatalogFeature);
+  public readonly loading$ = this.store.select(selectSpotifyLoadingFeature);
+  public readonly error$ = this.store.select(selectSpotifyFailedFeature);
+  public readonly selectedTypes$ = this.store.select(
+    selectSpotifySelectedTypesFeature
+  );
+  public readonly searchValue$ = this.store.select(
+    selectSpotifySearchValueFeature
+  );
+
+  public readonly spotifyTypes = SPOTIFY_TYPES;
 
   ngOnInit() {
     this.activatedRoute.fragment.subscribe((fragment) => {
@@ -51,5 +59,24 @@ export class DashboardPageComponent implements OnInit {
         })
       );
     });
+  }
+
+  public submit() {
+    combineLatest([this.searchValue$, this.selectedTypes$])
+      .pipe(
+        take(1),
+        tap(([searchValue, selectedTypes]) => {
+          this.store.dispatch(
+            spotifyActionsGroup.getCatalog({ searchValue, selectedTypes })
+          );
+        })
+      )
+      .subscribe();
+  }
+
+  public handleSelectedTypes(selectedType: string) {
+    this.store.dispatch(
+      spotifyActionsGroup.changeSelectedTypes({ selectedType })
+    );
   }
 }
