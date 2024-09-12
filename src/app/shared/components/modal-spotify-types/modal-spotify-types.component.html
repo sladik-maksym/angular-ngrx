@@ -1,6 +1,7 @@
+<div class="backdrop" (click)="close()"></div>
 <div class="wrapper">
   <button class="button-cross" (click)="close()">
-    <img src="/assets/svg/cross.svg" alt="">
+    <img src="assets/svg/cross.svg" alt="">
   </button>
 
   @let selectedTypes = (selectedTypes$ | async);

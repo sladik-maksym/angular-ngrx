@@ -1,6 +1,6 @@
 <div class="button-wrapper">
   <button (click)="handleSidebar()" class="collapse-button" [ngClass]="{ 'collapse-button-rotate': collapsed }">
-    <img src="/assets/svg/collapse.svg" alt="">
+    <img src="assets/svg/collapse.svg" alt="">
   </button>
 </div>
 
@@ -10,7 +10,7 @@
       @let accessToken = accessToken$ | async;
       <a class="item-link" [routerLink]="['/dashboard']"
         [fragment]="accessToken ? 'access_token=' + accessToken : undefined">
-        <img src="/assets/svg/dashboard.svg" alt="">
+        <img src="assets/svg/dashboard.svg" alt="">
 
         <span class="link-title" [ngClass]="{ 'collapse-link-title': !collapsed }">
           Dashboard
@@ -20,7 +20,7 @@
 
     <li routerLinkActive="active-link">
       <a class="item-link" [routerLink]="['/user', (user$ | async)?.user?.uid]">
-        <img src="/assets/svg/user.svg" alt="">
+        <img src="assets/svg/user.svg" alt="">
 
         <span class="link-title" [ngClass]="{ 'collapse-link-title': !collapsed }">
           User

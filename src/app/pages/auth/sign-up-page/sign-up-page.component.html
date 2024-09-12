@@ -27,8 +27,9 @@
   } @else {
   <app-second-step [formGroupOrganizationDetails]="signUpForm.controls.organizationDetails" />
 
-  @if(error$ | async) {
-  <span class="error-message">{{ error$ | async }}</span>
+  @let error = error$ | async;
+  @if(!!error) {
+  <span class="error-message">{{ error }}</span>
   }
 
   <div class="buttons-wrapper">

@@ -9,8 +9,8 @@
   }
 
   @let catalog = catalog$ | async;
-  @let searchValue = (searchValue$ | async);
-  @let selectedTypes = (selectedTypes$ | async);
+  @let searchValue = searchValue$ | async;
+  @let selectedTypes = selectedTypes$ | async;
   @if(!!catalog) {
   <div class="checkboxes_wrapper">
     @for(type of spotifyTypes; track type) {
@@ -55,7 +55,7 @@
   }
 
   <div class="calculator-wrapper">
-    <app-calculator></app-calculator>
-    <app-theme-switcher></app-theme-switcher>
+    <app-calculator />
+    <app-theme-switcher />
   </div>
 </div>

@@ -37,8 +37,9 @@
     </label>
   </div>
 
-  @if(error$ | async) {
-  <span class="error-message">{{ error$ | async }}</span>
+  @let error = error$ | async;
+  @if(!!error) {
+  <span class="error-message">{{ error }}</span>
   }
 
   <button class="button button-color" type="submit" [disabled]="loading$ | async">Log in</button>

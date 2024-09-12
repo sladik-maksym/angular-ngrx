@@ -8,7 +8,7 @@ import {
   selectSpotifySearchValueFeature,
 } from '@src/app/core/store/selectors/spotify.selectors';
 import { spotifyAuthUrl } from '@src/app/shared/constants/spotify';
-import { take, tap } from 'rxjs';
+import { combineLatest, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -28,10 +28,12 @@ export class HeaderComponent {
   );
 
   public handleSpotify() {
-    this.accessToken$
+    combineLatest([this.accessToken$, this.searchValue$])
       .pipe(
         take(1),
-        tap((accessToken) => {
+        tap(([accessToken, searchValue]) => {
+          if (!searchValue) return;
+
           if (accessToken) {
             this.store.dispatch(spotifyActionsGroup.handleModal());
           } else {

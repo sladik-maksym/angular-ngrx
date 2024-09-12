@@ -1,10 +1,11 @@
 <div class="wrapper">
   <div class="input-search-wrapper">
-    <button class="button-icon" (click)="handleSpotify()" [disabled]="!(searchValue$ | async)">
-      <img src="/assets/svg/search.svg" alt="">
+    @let searchValue = searchValue$ | async;
+    <button class="button-icon" (click)="handleSpotify()" [disabled]="!searchValue">
+      <img src="assets/svg/search.svg" alt="">
     </button>
 
-    <input type="text" class="input-search" placeholder="Search" [value]="searchValue$ | async"
+    <input type="text" class="input-search" (keyup.enter)="handleSpotify()" placeholder="Search" [value]="searchValue"
       (input)="handleSearch($event)">
   </div>
 

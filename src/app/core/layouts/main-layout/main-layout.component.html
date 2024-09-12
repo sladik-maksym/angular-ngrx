@@ -1,15 +1,15 @@
 <div class="sidebar" [ngClass]="{ 'sidebar-collapsed': collapsed }">
-  <app-sidebar [collapsed]="collapsed" (toggle)="collapsed = !collapsed"></app-sidebar>
+  <app-sidebar [collapsed]="collapsed" (toggle)="collapsed = !collapsed" />
 </div>
 
 <header class="header">
-  <app-header></app-header>
+  <app-header />
 </header>
 
 @if(isModalOpened$ | async) {
-<app-modal-spotify-types></app-modal-spotify-types>
+<app-modal-spotify-types />
 }
 
 <main class="main">
-  <router-outlet></router-outlet>
+  <router-outlet />
 </main>

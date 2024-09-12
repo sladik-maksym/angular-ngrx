@@ -44,7 +44,7 @@
 
     @if(!!passwordError) {
     <div class="password-requirements-wrapper">
-      <app-password-requirements [errors]="formGroupUserDetails.controls.password.errors"></app-password-requirements>
+      <app-password-requirements [errors]="formGroupUserDetails.controls.password.errors" />
     </div>
     }
   </label>

@@ -14,11 +14,13 @@ import { selectSpotifyAccessTokenFeature } from '@src/app/core/store/selectors/s
 })
 export class SidebarComponent {
   @Input({ required: true }) public collapsed!: boolean;
-  @Output() private toggle = new EventEmitter<boolean>();
+  @Output() private toggle = new EventEmitter<void>();
 
   private readonly store = inject(Store);
 
-  public readonly accessToken$ = this.store.select(selectSpotifyAccessTokenFeature);
+  public readonly accessToken$ = this.store.select(
+    selectSpotifyAccessTokenFeature
+  );
   public readonly user$ = this.store.select(selectAuthUserFeature);
 
   public handleSidebar() {
