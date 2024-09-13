@@ -15,7 +15,10 @@ import { pipe, switchMap, tap } from 'rxjs';
 import { SpotifyService } from '@src/app/core/services/spotify.service';
 import { ERROR_MESSAGES } from '@src/app/shared/constants/error-messages';
 import { Catalog } from '@src/app/shared/interfaces/catalog.interfaces';
-import { SpotifyError } from '@src/app/shared/interfaces/spotify.interfaces';
+import {
+  SpotifyError,
+  SpotifyType,
+} from '@src/app/shared/interfaces/spotify.interfaces';
 
 interface SpotifyState {
   accessToken: string | null;
@@ -24,7 +27,7 @@ interface SpotifyState {
   error: null | string;
   isModalOpened: boolean;
   searchValue: string;
-  selectedTypes: string[];
+  selectedTypes: SpotifyType[];
 }
 
 const initialState: SpotifyState = {
@@ -52,7 +55,7 @@ export const SpotifyStore = signalStore(
       setSearchValue(searchValue: SpotifyState['searchValue']) {
         patchState(store, { searchValue });
       },
-      setSelectedTypes(selectedType: SpotifyState['selectedTypes'][number]) {
+      setSelectedTypes(selectedType: SpotifyType) {
         patchState(store, (state) => {
           const isSelected = state.selectedTypes.includes(selectedType);
           const nextSelectedTypes = isSelected

@@ -4,6 +4,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 
 import { SpotifyStore } from '@src/app/core/store/spotify.store';
 import { SPOTIFY_TYPES } from '@src/app/shared/constants/spotify';
+import { SpotifyType } from '@src/app/shared/interfaces/spotify.interfaces';
 import { CalculatorComponent } from './shared/components/calculator/calculator.component';
 import { ThemeSwitcherComponent } from './shared/components/theme-switcher/theme-switcher.component';
 
@@ -45,7 +46,7 @@ export class DashboardPageComponent implements OnInit {
     });
   }
 
-  public handleSelectedTypes(selectedType: string) {
+  public handleSelectedTypes(selectedType: SpotifyType) {
     this.spotifyStore.setSelectedTypes(selectedType);
   }
 }

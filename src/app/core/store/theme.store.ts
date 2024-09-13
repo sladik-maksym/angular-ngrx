@@ -22,7 +22,7 @@ export const ThemeStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withMethods((store) => ({
-    setTheme(theme: Theme) {
+    setTheme(theme: ThemeState['theme']) {
       patchState(store, { theme });
     },
   })),
