@@ -17,7 +17,6 @@ import {
 import { spotifyEffect } from '@src/app/core/store/effects/spotify.effects';
 import { spotifyFeature } from '@src/app/core/store/reducers//spotify.reducers';
 import { authFeature } from '@src/app/core/store/reducers/auth.reducers';
-import { themeFeature } from '@src/app/core/store/reducers/theme.reducers';
 import { environment } from '@src/environments/environment';
 import { routes } from './app.routes';
 
@@ -28,7 +27,6 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideStore({
-      [themeFeature.name]: themeFeature.reducer,
       [authFeature.name]: authFeature.reducer,
       [spotifyFeature.name]: spotifyFeature.reducer,
     }),

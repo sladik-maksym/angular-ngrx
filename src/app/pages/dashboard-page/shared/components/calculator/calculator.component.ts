@@ -1,7 +1,6 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { selectThemeFeature } from '@src/app/core/store/selectors/theme.selectors';
+import { ThemeStore } from '@src/app/core/store/theme.store';
 import { ButtonHoverEffectDirective } from '@src/app/shared/directives/button-hover-effect.directive';
 import { evaluate } from 'mathjs';
 import {
@@ -13,16 +12,14 @@ import {
 @Component({
   selector: 'app-calculator',
   standalone: true,
-  imports: [NgClass, ButtonHoverEffectDirective, AsyncPipe],
+  imports: [NgClass, ButtonHoverEffectDirective],
   templateUrl: './calculator.component.html',
   styleUrl: './calculator.component.scss',
 })
 export class CalculatorComponent {
+  public readonly store = inject(ThemeStore);
+
   @ViewChild('calculatorDisplay')
-  private readonly store = inject(Store);
-
-  public readonly theme$ = this.store.select(selectThemeFeature);
-
   private readonly calculatorDisplayRef!: ElementRef<HTMLDivElement>;
 
   public displayValue: string = CALC_INITIAL_DISPLAY_VALUE;

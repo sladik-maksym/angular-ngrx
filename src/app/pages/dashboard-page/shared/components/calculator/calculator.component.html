@@ -1,4 +1,4 @@
-<div class="wrapper" [id]="theme$ | async">
+<div class="wrapper" [id]="store.theme()">
   <div class="calculatorDisplay" [title]="displayValue" #calculatorDisplay>
     @for(value of displayValue; track $index) {
     <span class="text">{{ value }}</span>
