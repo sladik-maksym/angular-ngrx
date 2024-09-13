@@ -1,54 +1,35 @@
-import { AsyncPipe, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { spotifyActionsGroup } from '@src/app/core/store/actions/spotify.actions';
-import {
-  selectSpotifySearchValueFeature,
-  selectSpotifySelectedTypesFeature,
-} from '@src/app/core/store/selectors/spotify.selectors';
+
+import { SpotifyStore } from '@src/app/core/store/spotify.store';
 import { SPOTIFY_TYPES } from '@src/app/shared/constants/spotify';
-import { combineLatest, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-modal-spotify-types',
   standalone: true,
-  imports: [TitleCasePipe, AsyncPipe],
+  imports: [TitleCasePipe],
   templateUrl: './modal-spotify-types.component.html',
   styleUrl: './modal-spotify-types.component.scss',
 })
 export class ModalSpotifyTypesComponent {
-  private readonly store = inject(Store);
-
-  public readonly searchValue$ = this.store.select(
-    selectSpotifySearchValueFeature
-  );
-  public readonly selectedTypes$ = this.store.select(
-    selectSpotifySelectedTypesFeature
-  );
+  public readonly spotifyStore = inject(SpotifyStore);
 
   public readonly spotifyTypes = SPOTIFY_TYPES;
 
   public handleSelectedTypes(selectedType: string) {
-    this.store.dispatch(
-      spotifyActionsGroup.changeSelectedTypes({ selectedType })
-    );
+    this.spotifyStore.setSelectedTypes(selectedType);
   }
 
   public submit() {
-    combineLatest([this.searchValue$, this.selectedTypes$])
-      .pipe(
-        take(1),
-        tap(([searchValue, selectedTypes]) => {
-          this.store.dispatch(
-            spotifyActionsGroup.getCatalog({ searchValue, selectedTypes })
-          );
-          this.store.dispatch(spotifyActionsGroup.handleModal());
-        })
-      )
-      .subscribe();
+    this.spotifyStore.setCatalog({
+      searchValue: this.spotifyStore.searchValue(),
+      selectedTypes: this.spotifyStore.selectedTypes(),
+    });
+
+    this.spotifyStore.setIsModalOpened();
   }
 
   public close() {
-    this.store.dispatch(spotifyActionsGroup.handleModal());
+    this.spotifyStore.setIsModalOpened();
   }
 }

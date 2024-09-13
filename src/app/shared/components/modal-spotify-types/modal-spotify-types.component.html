@@ -4,17 +4,17 @@
     <img src="assets/svg/cross.svg" alt="">
   </button>
 
-  @let selectedTypes = (selectedTypes$ | async);
+  @let selectedTypes = spotifyStore.selectedTypes();
   @for(type of spotifyTypes; track type) {
   <label class="item">
     <input type="checkbox" class="checkbox" [name]="type" (input)="handleSelectedTypes(type)"
-      [checked]="selectedTypes?.includes(type)">
+      [checked]="selectedTypes.includes(type)">
 
     <span class="text">{{ type | titlecase }}</span>
   </label>
   }
 
-  <button class="button button-color" type="button" (click)="submit()" [disabled]="selectedTypes?.length === 0">
+  <button class="button button-color" type="button" (click)="submit()" [disabled]="selectedTypes.length === 0">
     Search
   </button>
 </div>

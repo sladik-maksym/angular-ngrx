@@ -1,16 +1,16 @@
 <div class="wrapper">
-  @if(loading$ | async) {
+  @if(spotifyStore.loading()) {
   <span>Loading ...</span>
   }
 
-  @let error = error$ | async;
+  @let error = spotifyStore.error();
   @if(!!error) {
   <span>{{ error }}</span>
   }
 
-  @let catalog = catalog$ | async;
-  @let searchValue = searchValue$ | async;
-  @let selectedTypes = selectedTypes$ | async;
+  @let catalog = spotifyStore.catalog();
+  @let searchValue = spotifyStore.searchValue();
+  @let selectedTypes = spotifyStore.selectedTypes();
   @if(!!catalog) {
   <div class="checkboxes_wrapper">
     @for(type of spotifyTypes; track type) {

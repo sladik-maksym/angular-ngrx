@@ -6,6 +6,7 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
+
 import { THEMES } from '@src/app/pages/dashboard-page/shared/components/theme-switcher/shared/constants/theme-switcher.constants';
 import { Theme } from '@src/app/pages/dashboard-page/shared/components/theme-switcher/shared/interfaces/theme-switcher.interfaces';
 

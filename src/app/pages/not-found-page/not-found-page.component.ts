@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
 import { AuthStore } from '@src/app/core/store/auth.store';
 
 @Component({

@@ -12,9 +12,10 @@ import {
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { ERROR_MESSAGES } from '@src/app/shared/constants/error-messages';
 import { pipe, switchMap, tap } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+
+import { AuthService } from '@src/app/core/services/auth.service';
+import { ERROR_MESSAGES } from '@src/app/shared/constants/error-messages';
 
 type AuthState = {
   user: UserCredential | null;

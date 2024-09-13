@@ -1,5 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
+
 import { AuthStore } from '@src/app/core/store/auth.store';
 
 @Component({

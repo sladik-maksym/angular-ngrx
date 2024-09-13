@@ -1,8 +1,9 @@
 import { NgClass } from '@angular/common';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { evaluate } from 'mathjs';
+
 import { ThemeStore } from '@src/app/core/store/theme.store';
 import { ButtonHoverEffectDirective } from '@src/app/shared/directives/button-hover-effect.directive';
-import { evaluate } from 'mathjs';
 import {
   CALC_BUTTONS,
   CALC_INITIAL_DISPLAY_VALUE,

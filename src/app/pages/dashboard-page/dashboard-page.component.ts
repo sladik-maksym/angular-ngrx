@@ -1,17 +1,9 @@
-import { AsyncPipe, KeyValuePipe, TitleCasePipe } from '@angular/common';
+import { KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { spotifyActionsGroup } from '@src/app/core/store/actions/spotify.actions';
-import {
-  selectSpotifyCatalogFeature,
-  selectSpotifyFailedFeature,
-  selectSpotifyLoadingFeature,
-  selectSpotifySearchValueFeature,
-  selectSpotifySelectedTypesFeature,
-} from '@src/app/core/store/selectors/spotify.selectors';
+
+import { SpotifyStore } from '@src/app/core/store/spotify.store';
 import { SPOTIFY_TYPES } from '@src/app/shared/constants/spotify';
-import { combineLatest, take, tap } from 'rxjs';
 import { CalculatorComponent } from './shared/components/calculator/calculator.component';
 import { ThemeSwitcherComponent } from './shared/components/theme-switcher/theme-switcher.component';
 
@@ -27,7 +19,6 @@ const getURLSearchParams = (
   standalone: true,
   imports: [
     KeyValuePipe,
-    AsyncPipe,
     TitleCasePipe,
     CalculatorComponent,
     ThemeSwitcherComponent,
@@ -37,46 +28,24 @@ const getURLSearchParams = (
 })
 export class DashboardPageComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly store = inject(Store);
-
-  public readonly catalog$ = this.store.select(selectSpotifyCatalogFeature);
-  public readonly loading$ = this.store.select(selectSpotifyLoadingFeature);
-  public readonly error$ = this.store.select(selectSpotifyFailedFeature);
-  public readonly searchValue$ = this.store.select(
-    selectSpotifySearchValueFeature
-  );
-  public readonly selectedTypes$ = this.store.select(
-    selectSpotifySelectedTypesFeature
-  );
+  public readonly spotifyStore = inject(SpotifyStore);
 
   public readonly spotifyTypes = SPOTIFY_TYPES;
 
   ngOnInit() {
     this.activatedRoute.fragment.subscribe((fragment) => {
-      this.store.dispatch(
-        spotifyActionsGroup.setAccessToken({
-          accessToken: getURLSearchParams(fragment),
-        })
-      );
+      this.spotifyStore.setAccessToken(getURLSearchParams(fragment));
     });
   }
 
   public submit() {
-    combineLatest([this.searchValue$, this.selectedTypes$])
-      .pipe(
-        take(1),
-        tap(([searchValue, selectedTypes]) => {
-          this.store.dispatch(
-            spotifyActionsGroup.getCatalog({ searchValue, selectedTypes })
-          );
-        })
-      )
-      .subscribe();
+    this.spotifyStore.setCatalog({
+      searchValue: this.spotifyStore.searchValue(),
+      selectedTypes: this.spotifyStore.selectedTypes(),
+    });
   }
 
   public handleSelectedTypes(selectedType: string) {
-    this.store.dispatch(
-      spotifyActionsGroup.changeSelectedTypes({ selectedType })
-    );
+    this.spotifyStore.setSelectedTypes(selectedType);
   }
 }

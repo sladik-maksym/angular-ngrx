@@ -6,7 +6,7 @@
   <app-header />
 </header>
 
-@if(isModalOpened$ | async) {
+@if(spotifyStore.isModalOpened()) {
 <app-modal-spotify-types />
 }
 

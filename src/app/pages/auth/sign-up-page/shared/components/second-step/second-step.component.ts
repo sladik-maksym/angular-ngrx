@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { ERROR_MESSAGES } from '@src/app/shared/constants/error-messages';
 import { FormGroupOrganizationDetails } from '../../interfaces/sign-up-page.interfaces';
 

@@ -1,5 +1,6 @@
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+
 import { ThemeStore } from '@src/app/core/store/theme.store';
 import { ButtonHoverEffectDirective } from '@src/app/shared/directives/button-hover-effect.directive';
 import { THEMES } from './shared/constants/theme-switcher.constants';

@@ -1,27 +1,21 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { switchMap, take } from 'rxjs';
-import { selectSpotifyAccessTokenFeature } from '../store/selectors/spotify.selectors';
+
+import { SpotifyStore } from '@src/app/core/store/spotify.store';
 
 export const spotifyInterceptor: HttpInterceptorFn = (req, next) => {
-  const store = inject(Store);
+  const spotifyStore = inject(SpotifyStore);
+  const accessToken = spotifyStore.accessToken();
 
-  const accessToken$ = store.select(selectSpotifyAccessTokenFeature);
+  if (!!accessToken) {
+    return next(
+      req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+    );
+  }
 
-  return accessToken$.pipe(
-    take(1),
-    switchMap((accessToken) => {
-      if (accessToken) {
-        return next(
-          req.clone({
-            setHeaders: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
-        );
-      }
-      return next(req);
-    })
-  );
+  return next(req);
 };

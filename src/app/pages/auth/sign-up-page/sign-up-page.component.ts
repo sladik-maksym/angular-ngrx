@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+
 import { AuthStore } from '@src/app/core/store/auth.store';
 import { FirstStepComponent } from './shared/components/first-step/first-step.component';
 import { SecondStepComponent } from './shared/components/second-step/second-step.component';

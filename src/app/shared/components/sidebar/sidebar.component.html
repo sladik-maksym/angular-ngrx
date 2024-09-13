@@ -7,7 +7,7 @@
 <nav>
   <ul>
     <li routerLinkActive="active-link">
-      @let accessToken = accessToken$ | async;
+      @let accessToken = spotifyStore.accessToken();
       <a class="item-link" [routerLink]="['/dashboard']"
         [fragment]="accessToken ? 'access_token=' + accessToken : undefined">
         <img src="assets/svg/dashboard.svg" alt="">
