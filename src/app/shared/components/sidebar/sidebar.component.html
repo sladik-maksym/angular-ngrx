@@ -19,7 +19,7 @@
     </li>
 
     <li routerLinkActive="active-link">
-      <a class="item-link" [routerLink]="['/user', (user$ | async)?.user?.uid]">
+      <a class="item-link" [routerLink]="['/user', authStore.user()?.user?.uid]">
         <img src="assets/svg/user.svg" alt="">
 
         <span class="link-title" [ngClass]="{ 'collapse-link-title': !collapsed }">

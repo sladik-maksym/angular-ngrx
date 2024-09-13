@@ -1,14 +1,8 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { authActionsGroup } from '@src/app/core/store/actions/auth.actions';
-import {
-  selectAuthFailedFeature,
-  selectAuthLoadingFeature,
-} from '@src/app/core/store/selectors/auth.selectors';
-import { filter, take, tap } from 'rxjs';
+import { AuthStore } from '@src/app/core/store/auth.store';
 import { FirstStepComponent } from './shared/components/first-step/first-step.component';
 import { SecondStepComponent } from './shared/components/second-step/second-step.component';
 import {
@@ -28,16 +22,12 @@ import { SignUpForm } from './shared/interfaces/sign-up-page.interfaces';
     NgClass,
     SecondStepComponent,
     FirstStepComponent,
-    AsyncPipe,
   ],
   templateUrl: './sign-up-page.component.html',
   styleUrl: './sign-up-page.component.scss',
 })
 export class SignUpPageComponent implements OnDestroy {
-  private readonly store = inject(Store);
-
-  public readonly loading$ = this.store.select(selectAuthLoadingFeature);
-  public readonly error$ = this.store.select(selectAuthFailedFeature);
+  public readonly authStore = inject(AuthStore);
 
   public readonly signUpForm = new FormGroup<SignUpForm>({
     userDetails: new FormGroup(
@@ -82,7 +72,7 @@ export class SignUpPageComponent implements OnDestroy {
   public currentStep = 1;
 
   ngOnDestroy() {
-    this.store.dispatch(authActionsGroup.resetError());
+    this.authStore.resetError();
   }
 
   public setNextStep() {
@@ -97,13 +87,7 @@ export class SignUpPageComponent implements OnDestroy {
   }
 
   public setPrevStep() {
-    this.error$
-      .pipe(
-        take(1),
-        filter((error) => !!error),
-        tap(() => this.store.dispatch(authActionsGroup.resetError()))
-      )
-      .subscribe();
+    this.authStore.resetError();
 
     this.currentStep = 1;
   }
@@ -118,11 +102,9 @@ export class SignUpPageComponent implements OnDestroy {
     }
 
     const formValues = this.signUpForm.getRawValue();
-    this.store.dispatch(
-      authActionsGroup.signUp({
-        email: formValues.userDetails.email,
-        password: formValues.userDetails.password,
-      })
-    );
+    this.authStore.signUp({
+      email: formValues.userDetails.email,
+      password: formValues.userDetails.password,
+    });
   }
 }

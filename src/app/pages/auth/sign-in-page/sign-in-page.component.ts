@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, inject, OnDestroy } from '@angular/core';
 import {
   FormControl,
@@ -7,27 +7,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { authActionsGroup } from '@src/app/core/store/actions/auth.actions';
-import {
-  selectAuthFailedFeature,
-  selectAuthLoadingFeature,
-} from '@src/app/core/store/selectors/auth.selectors';
+import { AuthStore } from '@src/app/core/store/auth.store';
 import { ERROR_MESSAGES } from '@src/app/shared/constants/error-messages';
 import { SignInForm } from './shared/interfaces/sign-in-page.interfaces';
 
 @Component({
   selector: 'app-sign-in-page',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgClass, AsyncPipe],
+  imports: [RouterLink, ReactiveFormsModule, NgClass],
   templateUrl: './sign-in-page.component.html',
   styleUrl: './sign-in-page.component.scss',
 })
 export class SignInPageComponent implements OnDestroy {
-  private readonly store = inject(Store);
-
-  public readonly loading$ = this.store.select(selectAuthLoadingFeature);
-  public readonly error$ = this.store.select(selectAuthFailedFeature);
+  public readonly authStore = inject(AuthStore);
 
   public readonly signInForm = new FormGroup<SignInForm>({
     email: new FormControl('', {
@@ -41,7 +33,7 @@ export class SignInPageComponent implements OnDestroy {
   });
 
   ngOnDestroy() {
-    this.store.dispatch(authActionsGroup.resetError());
+    this.authStore.resetError();
   }
 
   get emailError() {
@@ -80,6 +72,6 @@ export class SignInPageComponent implements OnDestroy {
       return;
     }
 
-    this.store.dispatch(authActionsGroup.signIn(this.signInForm.getRawValue()));
+    this.authStore.signIn(this.signInForm.getRawValue());
   }
 }

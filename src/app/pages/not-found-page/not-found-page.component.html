@@ -1,6 +1,6 @@
 <span class="title">OOPS! Page not found :(</span>
 
-@let user = user$ | async;
+@let user = authStore.user();
 <a class="link" [routerLink]="user ? '/dashboard' : '/auth/sign-in'">
   Go to {{ user ? 'Dashboard' : 'Sign in' }} page
 </a>

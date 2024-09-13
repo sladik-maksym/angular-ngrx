@@ -1,8 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { authActionsGroup } from '@src/app/core/store/actions/auth.actions';
 import { spotifyActionsGroup } from '@src/app/core/store/actions/spotify.actions';
+import { AuthStore } from '@src/app/core/store/auth.store';
 import {
   selectSpotifyAccessTokenFeature,
   selectSpotifySearchValueFeature,
@@ -19,6 +19,7 @@ import { combineLatest, take, tap } from 'rxjs';
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
+  private readonly authStore = inject(AuthStore);
 
   private readonly accessToken$ = this.store.select(
     selectSpotifyAccessTokenFeature
@@ -50,6 +51,6 @@ export class HeaderComponent {
   }
 
   public logOut() {
-    this.store.dispatch(authActionsGroup.logOut());
+    this.authStore.signOut();
   }
 }

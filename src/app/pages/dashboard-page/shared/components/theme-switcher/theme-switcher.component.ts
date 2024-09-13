@@ -13,17 +13,17 @@ import { Themes } from './shared/interfaces/theme-switcher.interfaces';
   styleUrl: './theme-switcher.component.scss',
 })
 export class ThemeSwitcherComponent {
-  public readonly store = inject(ThemeStore);
+  public readonly themeStore = inject(ThemeStore);
 
   public readonly themes: Themes = THEMES;
   public readonly buttons = [
     {
       title: THEMES.LIGHT,
-      click: () => this.store.setTheme(THEMES.LIGHT),
+      click: () => this.themeStore.setTheme(THEMES.LIGHT),
     },
     {
       title: THEMES.DARK,
-      click: () => this.store.setTheme(THEMES.DARK),
+      click: () => this.themeStore.setTheme(THEMES.DARK),
     },
   ];
 }

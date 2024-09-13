@@ -1,23 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { selectAuthUserFeature } from '@src/app/core/store/selectors/auth.selectors';
-import { map } from 'rxjs';
+import { AuthStore } from '../store/auth.store';
 
 export const canActivateMainRoutes: CanActivateFn = () => {
   const router = inject(Router);
-  const store = inject(Store);
-  
-  const user$ = store.select(selectAuthUserFeature);
+  const authStore = inject(AuthStore);
 
-  return user$.pipe(
-    map((user) => {
-      if (user) {
-        return true;
-      }
+  if (!!authStore.user()) {
+    return true;
+  }
 
-      router.navigate(['/auth/sign-in']);
-      return false;
-    })
-  );
+  router.navigate(['/auth/sign-in']);
+  return false;
 };

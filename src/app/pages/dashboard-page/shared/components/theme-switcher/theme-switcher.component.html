@@ -2,7 +2,7 @@
 <div>
   @for(button of buttons; track button.title) {
   <button appButtonHoverEffect="0.5" appDefaultButtonHoverEffect="0.7" (click)="button.click()"
-    [ngClass]="{ activeButton: store.theme() === button.title }">
+    [ngClass]="{ activeButton: themeStore.theme() === button.title }">
     {{ button.title | uppercase }}
   </button>
   }

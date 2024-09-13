@@ -37,10 +37,10 @@
     </label>
   </div>
 
-  @let error = error$ | async;
+  @let error = authStore.error();
   @if(!!error) {
   <span class="error-message">{{ error }}</span>
   }
 
-  <button class="button button-color" type="submit" [disabled]="loading$ | async">Log in</button>
+  <button class="button button-color" type="submit" [disabled]="authStore.loading()">Log in</button>
 </form>

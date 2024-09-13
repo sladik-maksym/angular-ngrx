@@ -17,7 +17,7 @@ import {
   styleUrl: './calculator.component.scss',
 })
 export class CalculatorComponent {
-  public readonly store = inject(ThemeStore);
+  public readonly themeStore = inject(ThemeStore);
 
   @ViewChild('calculatorDisplay')
   private readonly calculatorDisplayRef!: ElementRef<HTMLDivElement>;

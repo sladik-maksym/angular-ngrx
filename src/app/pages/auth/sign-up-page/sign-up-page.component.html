@@ -27,17 +27,17 @@
   } @else {
   <app-second-step [formGroupOrganizationDetails]="signUpForm.controls.organizationDetails" />
 
-  @let error = error$ | async;
+  @let error = authStore.error();
   @if(!!error) {
   <span class="error-message">{{ error }}</span>
   }
 
   <div class="buttons-wrapper">
-    <button class="button button-back-color" type="button" (click)="setPrevStep()" [disabled]="loading$ | async">
+    <button class="button button-back-color" type="button" (click)="setPrevStep()" [disabled]="authStore.loading()">
       Back
     </button>
 
-    <button class="button button-color" type="submit" [disabled]="loading$ | async">
+    <button class="button button-color" type="submit" [disabled]="authStore.loading()">
       Sign up
     </button>
   </div>

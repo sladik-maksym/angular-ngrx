@@ -7,16 +7,8 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { spotifyInterceptor } from '@src/app/core/interceptors/spotify.interceptor';
-import {
-  authSuccessEffect,
-  logOutEffect,
-  logOutSuccessEffect,
-  signInEffect,
-  signUpEffect,
-} from '@src/app/core/store/effects/auth.effects';
 import { spotifyEffect } from '@src/app/core/store/effects/spotify.effects';
 import { spotifyFeature } from '@src/app/core/store/reducers//spotify.reducers';
-import { authFeature } from '@src/app/core/store/reducers/auth.reducers';
 import { environment } from '@src/environments/environment';
 import { routes } from './app.routes';
 
@@ -27,15 +19,9 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideStore({
-      [authFeature.name]: authFeature.reducer,
       [spotifyFeature.name]: spotifyFeature.reducer,
     }),
     provideEffects({
-      signUpEffect,
-      signInEffect,
-      logOutEffect,
-      authSuccessEffect,
-      logOutSuccessEffect,
       spotifyEffect,
     }),
     provideStoreDevtools({
