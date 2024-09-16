@@ -1,5 +1,5 @@
 <div class="button-wrapper">
-  <button (click)="handleSidebar()" class="collapse-button" [ngClass]="{ 'collapse-button-rotate': collapsed }">
+  <button (click)="handleSidebar()" class="collapse-button" [ngClass]="{ 'collapse-button-rotate': !collapsed }">
     <img src="assets/svg/collapse.svg" alt="">
   </button>
 </div>
@@ -12,7 +12,7 @@
         [fragment]="accessToken ? 'access_token=' + accessToken : undefined">
         <img src="assets/svg/dashboard.svg" alt="">
 
-        <span class="link-title" [ngClass]="{ 'collapse-link-title': !collapsed }">
+        <span class="link-title" [ngClass]="{ 'collapse-link-title': collapsed }">
           Dashboard
         </span>
       </a>
@@ -22,7 +22,7 @@
       <a class="item-link" [routerLink]="['/user', authStore.user()?.user?.uid]">
         <img src="assets/svg/user.svg" alt="">
 
-        <span class="link-title" [ngClass]="{ 'collapse-link-title': !collapsed }">
+        <span class="link-title" [ngClass]="{ 'collapse-link-title': collapsed }">
           User
         </span>
       </a>

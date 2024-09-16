@@ -22,10 +22,7 @@ export class ModalSpotifyTypesComponent {
   }
 
   public submit() {
-    this.spotifyStore.setCatalog({
-      searchValue: this.spotifyStore.searchValue(),
-      selectedTypes: this.spotifyStore.selectedTypes(),
-    });
+    this.spotifyStore.setCatalog();
 
     this.spotifyStore.setIsModalOpened();
   }

@@ -11,14 +11,14 @@
 
 .sidebar {
   grid-area: sidebar;
-  width: 48px;
+  width: 386px;
   background-color: var(--dark-gunmetal-color);
   transition: width 0.8s ease;
   overflow: hidden;
 }
 
 .sidebar-collapsed {
-  width: 386px;
+  width: 48px;
 }
 
 .header {

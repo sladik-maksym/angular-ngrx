@@ -23,5 +23,5 @@ import { SidebarComponent } from '@src/app/shared/components/sidebar/sidebar.com
 export class MainLayoutComponent {
   public readonly spotifyStore = inject(SpotifyStore);
 
-  public collapsed = true;
+  public collapsed = false;
 }

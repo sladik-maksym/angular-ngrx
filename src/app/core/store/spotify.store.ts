@@ -67,35 +67,37 @@ export const SpotifyStore = signalStore(
       setIsModalOpened() {
         patchState(store, (state) => ({ isModalOpened: !state.isModalOpened }));
       },
-      setCatalog: rxMethod<{
-        searchValue: SpotifyState['searchValue'];
-        selectedTypes: SpotifyState['selectedTypes'];
-      }>(
+      setCatalog: rxMethod<void>(
         pipe(
           tap(() => patchState(store, { loading: true, error: null })),
-          switchMap(({ searchValue, selectedTypes }) => {
-            return spotifyService.getCatalog(searchValue, selectedTypes).pipe(
-              tapResponse({
-                next: (catalog) => patchState(store, { catalog }),
-                error: (e: SpotifyError) => {
-                  const isAccessTokenExpired = e.status === 401;
+          switchMap(() => {
+            return spotifyService
+              .getCatalog(store.searchValue(), store.selectedTypes())
+              .pipe(
+                tapResponse({
+                  next: (catalog) => patchState(store, { catalog }),
+                  error: (e: SpotifyError) => {
+                    const isAccessTokenExpired = e.status === 401;
 
-                  if (isAccessTokenExpired) {
-                    router.navigate(['/dashboard']);
-                  }
+                    if (isAccessTokenExpired) {
+                      router.navigate(['/dashboard']);
+                    }
 
-                  const error = isAccessTokenExpired
-                    ? ERROR_MESSAGES.ACCESS_TOKEN_EXPIRED
-                    : ERROR_MESSAGES.SOMETHING_WRONG;
+                    const error = isAccessTokenExpired
+                      ? ERROR_MESSAGES.ACCESS_TOKEN_EXPIRED
+                      : ERROR_MESSAGES.SOMETHING_WRONG;
 
-                  patchState(store, { error });
-                },
-                finalize: () => patchState(store, { loading: false }),
-              })
-            );
+                    patchState(store, { error });
+                  },
+                  finalize: () => patchState(store, { loading: false }),
+                })
+              );
           })
         )
       ),
+      resetStore() {
+        patchState(store, { ...initialState });
+      },
     })
   ),
   withHooks({

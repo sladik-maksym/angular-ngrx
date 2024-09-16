@@ -15,6 +15,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
 
 import { AuthService } from '@src/app/core/services/auth.service';
+import { ResetStoresService } from '@src/app/core/services/reset-stores.service';
 import { ERROR_MESSAGES } from '@src/app/shared/constants/error-messages';
 
 type AuthState = {
@@ -38,7 +39,12 @@ export const AuthStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withMethods(
-    (store, authService = inject(AuthService), router = inject(Router)) => ({
+    (
+      store,
+      authService = inject(AuthService),
+      router = inject(Router),
+      resetStoresService = inject(ResetStoresService)
+    ) => ({
       signUp: rxMethod<{ email: string; password: string }>(
         pipe(
           tap(() => patchState(store, { loading: true, error: null })),
@@ -91,8 +97,9 @@ export const AuthStore = signalStore(
             return authService.logOut().pipe(
               tapResponse({
                 next: () => {
-                  patchState(store, { user: null });
+                  patchState(store, { ...initialState, user: null });
                   localStorage.removeItem('firebase-user');
+                  resetStoresService.resetStores();
                   router.navigate(['/auth/sign-in']);
                 },
                 error: (e) => {

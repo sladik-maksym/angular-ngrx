@@ -40,10 +40,7 @@ export class DashboardPageComponent implements OnInit {
   }
 
   public submit() {
-    this.spotifyStore.setCatalog({
-      searchValue: this.spotifyStore.searchValue(),
-      selectedTypes: this.spotifyStore.selectedTypes(),
-    });
+    this.spotifyStore.setCatalog();
   }
 
   public handleSelectedTypes(selectedType: SpotifyType) {

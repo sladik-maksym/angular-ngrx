@@ -25,6 +25,9 @@ export const ThemeStore = signalStore(
     setTheme(theme: ThemeState['theme']) {
       patchState(store, { theme });
     },
+    resetStore() {
+      patchState(store, { ...initialState });
+    },
   })),
   withHooks({
     onInit(store) {

@@ -16,12 +16,12 @@
     @for(type of spotifyTypes; track type) {
     <label class="item">
       <input type="checkbox" class="checkbox" [name]="type" (input)="handleSelectedTypes(type)"
-        [checked]="selectedTypes?.includes(type)">
+        [checked]="selectedTypes.includes(type)">
       <span class="text">{{ type | titlecase }}</span>
     </label>
     }
     <div class="button-wrapper">
-      <button class="button button-color" (click)="submit()" [disabled]="selectedTypes?.length === 0 || !searchValue">
+      <button class="button button-color" (click)="submit()" [disabled]="selectedTypes.length === 0 || !searchValue">
         Search
       </button>
     </div>
